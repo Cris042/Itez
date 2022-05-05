@@ -3,8 +3,8 @@ import { Alert } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 
 import { Container, Title, Input, Form, Text } from './styles';
-
 import { Button } from '../../components/Button';
+import api from "../../services/axios";
 
 export default function Register() 
 {
@@ -17,12 +17,19 @@ export default function Register()
 
 
   async function handleSave()
-  { 
+  {  
+     let response = "";
      const data = new FormData();
 
      data.append("email", email);
      data.append("name", name);
      data.append("password", password);
+
+     if( reg.test( email ) != true )
+      alert("Email invalido");
+     else
+       response = await api.post("/users/" , { data } );
+      
   }
 
   

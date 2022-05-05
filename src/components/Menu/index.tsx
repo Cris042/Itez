@@ -1,9 +1,10 @@
+import { ScrollView } from 'react-native';
 import React from 'react';
 import { MenuItem } from '../MenuItem';
 
 import { Container } from './styles';
 
-export type MenuTypeProps = 'gastos' | 'receitas';
+export type MenuTypeProps = 'Entretenimento' | 'Alimentação' | 'Educação' | 'Saúde' | 'Transporte' | 'Receita';
 
 type Props = 
 {
@@ -15,17 +16,37 @@ export function Menu({ type, setType }: Props)
 {
   return (
     <Container>
-      <MenuItem
-        title="Gastos"
-        isActive={type === "gastos"}
-        onPress={() => setType("gastos")}
-      />
+      <ScrollView>
+        <MenuItem
+          title="Entretenimento"
+          isActive={type === "Entretenimento"}
+          onPress={() => setType("Entretenimento")}
+        />
 
-      <MenuItem
-        title="Receitas"
-        isActive={type === "receitas"}
-        onPress={() => setType("receitas")}
-      />
+        <MenuItem
+          title="Alimentação"
+          isActive={type === "Alimentação"}
+          onPress={() => setType("Alimentação")}
+        />
+
+        <MenuItem
+          title="Educação"
+          isActive={type === "Educação"}
+          onPress={() => setType("Educação")}
+        />
+
+        <MenuItem
+          title="Saúde"
+          isActive={type === "Saúde"}
+          onPress={() => setType("Saúde")}
+        />
+
+        <MenuItem
+          title="Transporte"
+          isActive={type === "Transporte"}
+          onPress={() => setType("Transporte")}
+        />
+      </ScrollView>
     </Container>
   );
 }

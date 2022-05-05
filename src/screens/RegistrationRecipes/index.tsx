@@ -1,22 +1,66 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Button } from '../../components/Button';
 
 import { Container, Title, Input, Form, Text } from './styles';
 import api from "../../services/axios";
 
+interface DetailsRouteParams 
+{
+    id: string;
+}
+
+interface User
+{
+   id: string;
+   name: string;
+   token: string;
+}
+
 
 export  default function RegistrationRecipes() 
 {
-  const navigation = useNavigation();
   const [ name, setName ] = useState('');
-  const [ valueTransactions, setValue ] = useState( "0" );
+  const [ valueTransactions, setValue ] = useState( "" );
+  const [ type, setType ] = useState("receitas");
+
+  const [ user, setUser ] = useState<User[]>([]);
+
+  const route = useRoute();
+  const navigation = useNavigation();
+  const params = route.params as DetailsRouteParams;
+
+  useEffect(() => 
+  {
+  
+      async function load() 
+      {
+         const response = await AsyncStorage.getItem( '@app:User' );
+  
+         const responseFormatted = response ? JSON.parse( response ) : [];
+         const expensives = responseFormatted;
+  
+         setUser( expensives );  
+      }
+
+      load();
+
+  }, [  ]);
  
   async function handleSave()
   {
-     alert(  )
+    const transactions = new FormData();
+
+    transactions.append("name", name);
+    transactions.append("type", type);
+    transactions.append("id", user[0]?.id);
+    transactions.append("value", valueTransactions);
+    
+    await api.post("/transactions/", { transactions } );
+    navigation.navigate("Home");
   }
 
   

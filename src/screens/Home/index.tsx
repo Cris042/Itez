@@ -36,14 +36,17 @@ export  default function Home()
 
   },[ transactions ]);
 
-  async function handleEdit( response: TransactionsObj )   
+  async function handleEdit( response: String )   
   {
-      console.log( response )
+      if( response == "recitas")
+        navigation.navigate("RegisterRecipes", { response } );
+      else
+        navigation.navigate("RegisterExpense", { response } );
   }
 
   async function handleRemove( response: String ) 
   {
-     console.log( response )
+      await api.put("/transactions/delet", { response } );
   }
   
   return (
@@ -56,7 +59,7 @@ export  default function Home()
         renderItem={({ item }) => (
           <Transactions
             data={ item }
-            onEdit={() => handleEdit( item )}
+            onEdit={() => handleEdit( item.type )}
             onRemove={() => handleRemove( item.id )}
           />
         )}

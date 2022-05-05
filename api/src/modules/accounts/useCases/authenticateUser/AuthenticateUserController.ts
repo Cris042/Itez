@@ -6,10 +6,12 @@ class AuthenticateUserController
 {
   async handle( request: Request, response: Response ): Promise<Response> 
   {
-    const { email, password } = request.body;
-
     const authenticateUserUseCase = container.resolve( AuthenticateUserUseCase );
-    const data = await authenticateUserUseCase.execute({ email, password });
+    const data = await authenticateUserUseCase.execute
+    ({ 
+      email : request.body.data._parts[0][1],
+      password : request.body.data._parts[1][1],
+    });
 
     return response.json( data );
   }

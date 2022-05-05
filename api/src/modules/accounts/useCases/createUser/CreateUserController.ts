@@ -6,15 +6,14 @@ class CreateUserController
 {
   async handle( request: Request, response: Response ): Promise<Response> 
   {
-    const { name, email, password, isAdmin } = request.body;
     const createUserUseCase = container.resolve( CreateUserCase );
 
     await createUserUseCase.execute(
     {
-      name,
-      email,
-      password,
-      isAdmin,
+      email : request.body.data._parts[0][1],
+      name : request.body.data._parts[1][1],
+      password : request.body.data._parts[2][1],
+      isAdmin : false,
     });
 
     return response.status(201).send();

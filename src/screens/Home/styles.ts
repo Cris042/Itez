@@ -13,26 +13,14 @@ export const Title = styled.Text`
   color: #FFF;
   text-align:center;
   font-weight: bold;
-  margin: 34px 0 40px 0;
+  margin: 34px 0 80px 0;
 `;
 
-export const Input = styled.TextInput`
-  width: 100%;
-  height: 56px;
-  border: 1px solid #131016;
-  border-radius: 5px;
-  padding: 16px;
-  background: #FFF;
-  margin-bottom: 5px;
-`;
-
-export const Form = styled.View`
-  padding: 24px;
-`;
-
-export const FormTitle = styled.Text`
+export const Text = styled.Text`
   font-size: 24px;
-  color: #131016;
+  color: #25C5F0;
+  text-align:center;
   font-weight: bold;
-  margin-bottom: 2px;
+  margin: 14px 0 30px 0;
 `;
+

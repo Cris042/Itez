@@ -1,13 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { FlatList, Alert } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
+import { useNavigation } from "@react-navigation/native";
 
-import { Menu, MenuTypeProps } from '../../components/Menu';
 import { Transactions } from '../../components/Transactions';
-import { Button } from '../../components/Button';
 
-import { Container, Title, Input, Form, FormTitle } from './styles';
-
+import { Container, Title, Text } from './styles';
 import api from "../../services/axios";
 
 interface TransactionsObj
@@ -21,11 +19,7 @@ interface TransactionsObj
 
 export  default function Home() 
 {
-  const [ name, setName ] = useState('');
-  const [ valueTransactions, setValue ] = useState( "0" );
-  const [ category, setCategory ] = useState('c1');
-  const [ typeTransactions, setTypeTransactions ] = useState<MenuTypeProps>("gastos");
-
+  const navigation = useNavigation();
   const [ transactions, setTransactions ] = useState<TransactionsObj[]>([]);
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -42,54 +36,19 @@ export  default function Home()
 
   },[ transactions ]);
 
-  async function handleEdit()   
+  async function handleEdit( response: TransactionsObj )   
   {
-   
+      console.log( response )
   }
 
-  async function handleRemove() 
+  async function handleRemove( response: String ) 
   {
-   
+     console.log( response )
   }
-
-  async function handleSave()
-  {
-     alert( typeTransactions )
-  }
-
   
   return (
     <Container>
       <Title>Gerenciar</Title>
-
-      <Menu
-        type={ typeTransactions }
-        setType={ setTypeTransactions }
-      />
-      
-      <Form>
-        <FormTitle>
-          Skill
-        </FormTitle>
-
-        <Input
-          placeholder="Nome..."
-          onChangeText={ setName }
-          value={ name }
-        />
-
-        <Input
-          placeholder="Valor"
-          keyboardType="numeric"
-          onChangeText={ setValue }
-          value={ valueTransactions }
-        />
-
-        <Button
-          title="Enviar"
-          onPress={ handleSave }
-        />
-      </Form>
 
       <FlatList
         data={ transactions }
@@ -97,13 +56,14 @@ export  default function Home()
         renderItem={({ item }) => (
           <Transactions
             data={ item }
-            onEdit={() => handleEdit()}
-            onRemove={() => handleRemove()}
+            onEdit={() => handleEdit( item )}
+            onRemove={() => handleRemove( item.id )}
           />
         )}
       /> 
 
-     
+      <Text onPress={() => { navigation.navigate("RegisterRecipes") }} > Cadastrar Nova Receita </Text>
+      <Text onPress={() => { navigation.navigate("RegisterExpense") }} > Cadastrar Novo Gasto </Text>
     </Container>
   );
 }

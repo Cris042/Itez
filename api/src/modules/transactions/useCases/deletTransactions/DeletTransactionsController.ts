@@ -15,7 +15,7 @@ class DeletTransactionsController
       id: transactionsId,
     });
     
-    return response.status(201).json(response);
+    return response.status(201).send();
   }
 }
 

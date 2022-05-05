@@ -20,7 +20,7 @@ class UpdateTransactionsController
       value,
     });
     
-    return response.status(201).json(response);
+    return response.status(201).send();
   }
 }
 

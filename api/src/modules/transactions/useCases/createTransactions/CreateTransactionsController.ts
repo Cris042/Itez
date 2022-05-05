@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+
 import { CreateTransactionsUseCase } from "./CreateTransactionsUseCase";
 
 class CreateTransactionsController 
@@ -7,9 +8,9 @@ class CreateTransactionsController
   async handle( request: Request, response: Response ): Promise<Response> 
   {
     const { name, idUser, type, value } = request.body;
-    const createUserUseCase = container.resolve( CreateTransactionsUseCase );
+    const createTransactionsUseCase = container.resolve( CreateTransactionsUseCase );
 
-    await createUserUseCase.execute(
+    await createTransactionsUseCase.execute(
     {
       name,
       idUser,

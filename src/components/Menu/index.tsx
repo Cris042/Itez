@@ -3,7 +3,7 @@ import { MenuItem } from '../MenuItem';
 
 import { Container } from './styles';
 
-export type MenuTypeProps = 'Gastos' | 'Receitas';
+export type MenuTypeProps = 'gastos' | 'receitas';
 
 type Props = 
 {
@@ -17,14 +17,14 @@ export function Menu({ type, setType }: Props)
     <Container>
       <MenuItem
         title="Gastos"
-        isActive={type === "Gastos"}
-        onPress={() => setType("Gastos")}
+        isActive={type === "gastos"}
+        onPress={() => setType("gastos")}
       />
 
       <MenuItem
         title="Receitas"
-        isActive={type === "Receitas"}
-        onPress={() => setType("Receitas")}
+        isActive={type === "receitas"}
+        onPress={() => setType("receitas")}
       />
     </Container>
   );

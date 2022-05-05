@@ -3,22 +3,22 @@ import { container } from "tsyringe";
 import { UpdateUserUseCase } from "./UpdateUserUseCase";
 
 class UpdateUserController {
-  async handle(request: Request, response: Response): Promise<Response> {
+  async handle(request: Request, response: Response): Promise<Response> 
+  {
   
-    const user_id = request.user.id;
-    const { name, password,  avatar, old_password } = request.body;
+    const id = request.body.id;
+    const { email, name, password, old_password } = request.body;
     const createUserUseCase = container.resolve(UpdateUserUseCase);
 
-    const user = await createUserUseCase.execute({
-      id: user_id,
+    const user = await createUserUseCase.execute
+    ({
+      id: id,
+      email,
       name,
       password,
       old_password,      
-      avatar
     });
     
-    console.log("PUSH DO USUÁRIO")
-    console.log(request.body)
     return response.status(201).json(response);
   }
 }

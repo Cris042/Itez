@@ -8,32 +8,41 @@ import { Button } from '../../components/Button';
 
 import { Container, Title, Input, Form, FormTitle } from './styles';
 
-interface Transactions
+import api from "../../services/axios";
+
+interface TransactionsObj
 {
     id: string;
     name: string;
-    value: number;
+    idUser: string;
     type: string;
+    value: string;
 }
 
-export  default function Home() {
+export  default function Home() 
+{
   const [ name, setName ] = useState('');
-  const [ valueTransactions, setValue ] = useState( 0 );
+  const [ valueTransactions, setValue ] = useState( "0" );
   const [ category, setCategory ] = useState('c1');
-  const [ type, setType ] = useState<MenuTypeProps>("Gastos");
+  const [ typeTransactions, setTypeTransactions ] = useState<MenuTypeProps>("gastos");
 
-  const [ transactions, setTransactions ] = useState<Transactions[]>([]);
+  const [ transactions, setTransactions ] = useState<TransactionsObj[]>([]);
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  // let obj = {
-  //   id: "1",
-  //   name: name,
-  //   type: String( type ),
-  // }
+  useEffect(() => 
+  {
 
-  // setSkills( [obj] )
+    async function load() 
+    {
+      const response = await api.get("/transactions/list");
+      setTransactions( response.data );
+    }
 
-  async function handleEdit() 
+    load();
+
+  },[ transactions ]);
+
+  async function handleEdit()   
   {
    
   }
@@ -45,17 +54,17 @@ export  default function Home() {
 
   async function handleSave()
   {
-     alert( type )
+     alert( typeTransactions )
   }
 
   
   return (
     <Container>
       <Title>Gerenciar</Title>
-      
+
       <Menu
-        type={ type }
-        setType={ setType }
+        type={ typeTransactions }
+        setType={ setTypeTransactions }
       />
       
       <Form>
@@ -64,13 +73,14 @@ export  default function Home() {
         </FormTitle>
 
         <Input
-          placeholder="Nome."
+          placeholder="Nome..."
           onChangeText={ setName }
           value={ name }
         />
 
         <Input
           placeholder="Valor"
+          keyboardType="numeric"
           onChangeText={ setValue }
           value={ valueTransactions }
         />
@@ -93,6 +103,7 @@ export  default function Home() {
         )}
       /> 
 
+     
     </Container>
   );
 }

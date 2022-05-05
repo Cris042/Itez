@@ -13,7 +13,7 @@ export const Title = styled.Text`
   color: #FFF;
   text-align:center;
   font-weight: bold;
-  margin: 34px 0 70px 0;
+  margin: 34px 0 40px 0;
 `;
 
 export const Input = styled.TextInput`
@@ -34,5 +34,5 @@ export const FormTitle = styled.Text`
   font-size: 24px;
   color: #131016;
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 2px;
 `;

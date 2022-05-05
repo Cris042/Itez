@@ -9,6 +9,7 @@ export const Container = styled.TouchableOpacity<Props>`
     background-color: ${({ isActive }) => isActive ? "#1F1E25" : "transparent"};
     padding: 24px 10px;
     border-radius: 8px;
+    margin-top: 20px;
 `;
 
 export const Title = styled.Text`

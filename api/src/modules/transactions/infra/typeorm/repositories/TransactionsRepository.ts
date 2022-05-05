@@ -47,6 +47,13 @@ class TransactionsRepository implements ITransactionsRepository
 
   }
 
+  async delet( id: string ): Promise<void> 
+  {
+
+    await this.repository.delete( id );
+
+  }
+
   async save( transactions: Transactions ): Promise<Transactions> 
   {
 
@@ -57,8 +64,10 @@ class TransactionsRepository implements ITransactionsRepository
 
   async list(): Promise<Transactions[]> 
   {
+
     const transactions = await this.repository.find();
     return transactions;
+    
   }
 
   

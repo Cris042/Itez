@@ -6,6 +6,7 @@ interface ITransactionsRepository
   create( data: ICreateTransactionsDTO ): Promise<void>;
   save( transactions: Transactions ): Promise<Transactions>;
   list(): Promise<Transactions[]>;
+  delet( id: string ): Promise<void>;
   findByName( name: string ): Promise<Transactions>;
   findById( id: string ): Promise<Transactions>;
 }

@@ -8,7 +8,7 @@ import { IDateProvider } from "@shared/container/providers/DateProvider/IDatePro
 
 interface IPayload {
   sub: string;
-  email: string;
+  name: string;
 }
 
 interface ITokenResponse {
@@ -26,7 +26,7 @@ class RefreshTokenUseCase {
   ) {}
 
   async execute(token: string): Promise<ITokenResponse> {
-    const { email, sub } = verify(token, auth.secret_refresh_token) as IPayload;
+    const { name, sub } = verify(token, auth.secret_refresh_token) as IPayload;
 
     const user_id = sub;
 
@@ -41,7 +41,7 @@ class RefreshTokenUseCase {
 
     await this.usersTokensRepository.deleteById(userToken.id);
 
-    const refresh_token = sign({ email }, auth.secret_refresh_token, {
+    const refresh_token = sign({ name }, auth.secret_refresh_token, {
       subject: sub,
       expiresIn: auth.expires_in_refresh_token,
     });

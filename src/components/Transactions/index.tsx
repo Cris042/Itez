@@ -5,10 +5,11 @@ import { Container, Icon, Name, Options, Option } from './styles';
 
 export type TransactionsProps = 
 {
-  id: string;
-  name: string;
-  value: number;
-  type: string;
+    id: string;
+    name: string;
+    idUser: string;
+    type: string;
+    value: string;
 }
 
 type Props = 
@@ -24,13 +25,14 @@ export function Transactions({ data, onRemove, onEdit }: Props)
     <Container>
       <Icon type={data.type}>
         <Entypo
-          name={data.type === "soft" ? "user" : "tools"}
+          name={data.type === "receitas" ? "credit" : "circle-with-plus" }
           color="#FFF"
           size={20}
         />
       </Icon>
 
       <Name>{ data.name }</Name>
+      <Name>{ data.value } $</Name>
 
       <Options>
 

@@ -5,16 +5,18 @@ import { AppError } from "@shared/errors/AppError";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { User } from "@modules/accounts/infra/typeorm/entities/User";
 
-interface Data {
+interface Data 
+{
   id: string;
+  email: string;
   name: string;
   password: string;
   old_password?: string;
-  avatar: string;
 }
 
 @injectable()
-class UpdateUserUseCase {
+class UpdateUserUseCase 
+{
   constructor(
     @inject("UsersRepository")
     private usersRepository: IUsersRepository
@@ -22,33 +24,44 @@ class UpdateUserUseCase {
 
   async execute({
     id,
+    email,
     name,
-    avatar,
     password,
     old_password,
   }: Data): Promise<User> {
     const user = await this.usersRepository.findById(id);
 
-    if (!user) {
+    if (!user) 
+    {
       throw new AppError('User not found');
     }
 
-    user.name = name;
-    user.avatar = avatar;
+    const userAlreadyExists = await this.usersRepository.findByEmail( email );
 
-    if (password && !old_password) {
+    if ( userAlreadyExists ) 
+    {
+      throw new AppError("User already exists");
+    }
+
+    user.name = name;
+    user.email = email;
+
+    if ( password && !old_password) 
+    {
       throw new AppError(
         'You need to inform  the old password to set a new password.',
       );
     }
 
-    if (password && old_password) {
+    if (password && old_password) 
+    {
       const checkOldPassword = await bcrypt.compare(
         old_password,
         user.password,
       );
 
-      if (!checkOldPassword) {
+      if (!checkOldPassword) 
+      {
         throw new AppError('Old password does not match.');
       }
 
